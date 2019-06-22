@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<constant name="struts.objectFactory" value="spring"></constant>
+	<package name="lemon" namespace="/" extends="struts-default">
+		<global-results>
+			<result name="index">index.jsp</result>
+			<result name="getSemesterList" type="chain">SemesterAction_getSemesterList</result>
+		</global-results>
+		<action name="AdminAction_*" class="adminAction" method="{1}">
+			<result name="toClassList" type="redirectAction">ClazzAction_list</result>
+			<result name="index">index.jsp</result>
+		</action>
+		<action name="ClazzAction_*" class="clazzAction" method="{1}">
+			<result name="class">class.jsp</result>
+			<result name="toList" type="redirectAction">ClazzAction_list</result>
+			<result name="student">student.jsp</result>
+		</action>
+		<action name="StudentAction_*" class="studentAction" method="{1}">
+			<result name="clazzList" type="chain">ClazzAction_toStudent</result>
+			<result name="toList" type="redirectAction">StudentAction_list</result>
+			<result name="student">student.jsp</result>
+		</action>
+	</package>
+</struts>
